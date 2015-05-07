@@ -83,7 +83,7 @@ EOF
     cat > /etc/hostname <<EOF
 $HOSTNAME
 EOF
-    systemctl restart network
+    service network restart
 }
 
 function install_cobbler() {
