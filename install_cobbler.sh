@@ -94,25 +94,25 @@ function config_yum_repo() {
     cat > /etc/yum.repos.d/centos.repo <<EOF
 [base]  
 name=CentOS-$releasever - Base  
-baseurl=http://mirrors.sohu.com/centos/6/os/x86_64/  
+baseurl=http://mirrors.sohu.com/centos/7/os/x86_64/  
 gpgcheck=0  
 enabled=1  
   
 [epel]  
 name=epel  
-baseurl=http://mirrors.sohu.com/fedora-epel/6Server/x86_64/  
+baseurl=http://mirrors.sohu.com/fedora-epel/7/x86_64/  
 gpgcheck=0  
 enabled=1    
 
 [extra]  
 name=extra  
-baseurl=http://mirrors.sohu.com/centos/6/extras/x86_64  
+baseurl=http://mirrors.sohu.com/centos/7/extras/x86_64  
 gpgcheck=0  
 enabled=1  
   
 [update]  
 name=extra  
-baseurl=http://mirrors.sohu.com/centos/6/updates/x86_64  
+baseurl=http://mirrors.sohu.com/centos/7/updates/x86_64  
 gpgcheck=0  
 enabled=1 
 EOF
