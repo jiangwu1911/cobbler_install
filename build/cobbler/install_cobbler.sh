@@ -3,11 +3,11 @@
 PASSWORD='abc123'
 
 function get_input() {
-    read -p "$1 (default: $2): " VAR
+    read -p "$1 (default: $3): " VAR
     if [ -z $VAR ]; then
-        VAR=$2
+        VAR=$3
     fi
-    eval $3=$VAR
+    eval $2=$VAR
 }
 
 function answer_yes_or_no() {
@@ -43,17 +43,17 @@ function config_network() {
         hostname=`hostname`
         dns=$(cat /etc/resolv.conf | grep nameserver | head -n 1 | awk '{print $2}')
 
-        get_input 'Input hostname' $hostname HOSTNAME
-        get_input 'The NIC name for PXE install' $default_interface INTERFACE
-        get_input 'IP address' $ip IPADDR
-        get_input 'Netmask' $netmask NETMASK
-        get_input 'Gateway' $gateway GATEWAY
+        get_input 'Input hostname' HOSTNAME $hostname
+        get_input 'The NIC name for PXE install' INTERFACE $default_interface
+        get_input 'IP address' IPADDR $ip
+        get_input 'Netmask' NETMASK $netmask
+        get_input 'Gateway' GATEWAY $gateway
         SUBNET=$(echo $IPADDR | cut -d. -f1-3)'.0'
         dhcp_start=$(echo $IPADDR | cut -d. -f1-3)'.100'
         dhcp_end=$(echo $IPADDR | cut -d. -f1-3)'.254'
-        get_input 'DHCP range start' $dhcp_start DHCP_START
-        get_input 'DHCP range end' $dhcp_end DHCP_END
-        get_input 'DNS server' $dns DNS_SERVER
+        get_input 'DHCP range start' DHCP_START $dhcp_start
+        get_input 'DHCP range end' DHCP_END $dhcp_end
+        get_input 'DNS server' DNS_SERVER $dns
 
         echo -e "\nNetwork parameters:"
         echo "    Hostname: $HOSTNAME"
@@ -61,7 +61,7 @@ function config_network() {
         echo "    Netmask: $NETMASK"
         echo "    Gateway: $GATEWAY"
         echo "    DHCP range start: $DHCP_START"
-        echo "    DHCP range end: $DHCP_END\n"
+        echo "    DHCP range end: $DHCP_END"
         echo -e "    DNS server: $DNS_SERVER\n"
 
         answer_yes_or_no "is it correct:" ANSWER
