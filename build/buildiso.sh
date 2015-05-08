@@ -17,6 +17,8 @@ rm -rf $ISODIR/repodata/
 createrepo -g comps.xml $ISODIR
 rm -rf $ISODIR/cobbler
 cp -r cobbler $ISODIR
+rm -rf $ISODIR/vmware
+cp -r vmware $ISODIR
 
 rm -rf $ISODIR/ks
 mkdir -p $ISODIR/ks

@@ -33,8 +33,7 @@ function config_network() {
         splash_screen
 
         echo -e "Config network:\n"
-        default_route=$(ip route show)
-        default_interface=$(echo $default_route | sed -e 's/^.*dev \([^ ]*\).*$/\1/' | head -n 1)
+        default_interface=$(ip link show  | grep -v '^\s' | cut -d':' -f2 | sed 's/ //g' | grep -v lo | head -1)
         address=$(ip addr show label $default_interface scope global | awk '$1 == "inet" { print $2,$4}')
         ip=$(echo $address | awk '{print $1 }')
         ip=${ip%%/*}
@@ -156,6 +155,7 @@ function start_cobbler() {
 
 function generate_sshkey() {
     mkdir -p /root/.ssh
+    rm -rf /root/.ssh/*
     ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
     cat >> /root/.ssh/config <<EOF
 StrictHostKeyChecking no
@@ -165,7 +165,7 @@ EOF
 
 
 config_network
-config_yum_repo
+#config_yum_repo
 
 install_cobbler
 config_cobbler
